@@ -9,7 +9,7 @@ class BytebankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: FormularioTransferencia(),
+        body: ListaTransferencias(),
       ),
     );
   }
@@ -37,21 +37,23 @@ class FormularioTransferencia extends StatelessWidget {
             dica: '0.00',
             icone: Icons.monetization_on),
         RaisedButton(
-          onPressed: () => _criaTransferencia(),
+          onPressed: () => _criaTransferencia(context),
           child: Text('Confirmar'),
         )
       ]),
     );
   }
 
-  void _criaTransferencia() {
+  void _criaTransferencia(BuildContext context) {
     final int numeroConta =
         int.tryParse(_controladorCampoNumeroConta.text);
     final double valor = double.tryParse(_controladorCampoValor.text);
 
     if (numeroConta != null && valor != null) {
       final transferenciaCriada = Transferencia(valor, numeroConta);
+      debugPrint('Criando Transferência');
       debugPrint('$transferenciaCriada');
+      Navigator.pop(context, transferenciaCriada);
     }
   }
 }
@@ -95,12 +97,22 @@ class ListaTransferencias extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // ItemTransferencia(Transferencia(100.00, '1000')),
-          // ItemTransferencia(Transferencia(200.00, '2000')),
-          // ItemTransferencia(Transferencia(300.00, '3000')),
+          ItemTransferencia(Transferencia(100.00, 1000)),
+          ItemTransferencia(Transferencia(200.00, 2000)),
+          ItemTransferencia(Transferencia(300.00, 3000)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          final Future<Transferencia> future = Navigator.push(context, MaterialPageRoute(builder: (context){
+            return FormularioTransferencia();
+          }));
+
+          future.then((transferenciaRecebida) {
+            debugPrint('Chegou no Then do Future');
+            debugPrint('$transferenciaRecebida');
+          });
+        },
         child: Icon(Icons.add),
       ),
     );
