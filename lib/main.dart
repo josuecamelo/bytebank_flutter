@@ -37,21 +37,22 @@ class FormularioTransferencia extends StatelessWidget {
             dica: '0.00',
             icone: Icons.monetization_on),
         RaisedButton(
-          onPressed: () {
-            debugPrint('clicou no confirmar');
-            final int numeroConta =
-                int.tryParse(_controladorCampoNumeroConta.text);
-            final double valor = double.tryParse(_controladorCampoValor.text);
-
-            //if(numeroConta!= null && valor != null){
-            final transferenciaCriada = Transferencia(valor, numeroConta);
-            debugPrint('$transferenciaCriada');
-            //}
-          },
+          onPressed: () => _criaTransferencia(),
           child: Text('Confirmar'),
         )
       ]),
     );
+  }
+
+  void _criaTransferencia() {
+    final int numeroConta =
+        int.tryParse(_controladorCampoNumeroConta.text);
+    final double valor = double.tryParse(_controladorCampoValor.text);
+
+    if (numeroConta != null && valor != null) {
+      final transferenciaCriada = Transferencia(valor, numeroConta);
+      debugPrint('$transferenciaCriada');
+    }
   }
 }
 
