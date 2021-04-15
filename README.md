@@ -1,6 +1,9 @@
 # bytebank
 
-A new Flutter project.
+A new Flutter project. 
+Usando versão 1.22.0 do Flutter
+
+Josué Camelo dos Santos Ferreira
 
 ## Getting Started
 
