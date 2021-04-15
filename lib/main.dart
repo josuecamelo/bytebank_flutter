@@ -27,31 +27,21 @@ class FormularioTransferencia extends StatelessWidget {
         title: Text('Criando Transferências'),
       ),
       body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _controladorCampoNumeroConta,
-            style: TextStyle(fontSize: 24.0),
-            decoration: InputDecoration(
-              labelText: 'Número da Conta',
-              hintText: '0000',
-            ),
-            keyboardType: TextInputType.number,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _controladorCampoValor,
-            style: TextStyle(fontSize: 24.0),
-            decoration: InputDecoration(
-              icon: Icon(Icons.monetization_on),
-              labelText: 'Valor',
-              hintText: '0.00',
-            ),
-            keyboardType: TextInputType.number,
-          ),
-        ),
+        Editor(_controladorCampoNumeroConta, 'Número da Conta', '0000', null),
+        Editor(_controladorCampoValor, 'Valor', '0.00', Icons.monetization_on),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: TextField(
+        //     controller: _controladorCampoValor,
+        //     style: TextStyle(fontSize: 24.0),
+        //     decoration: InputDecoration(
+        //       icon: Icon(Icons.monetization_on),
+        //       labelText: 'Valor',
+        //       hintText: '0.00',
+        //     ),
+        //     keyboardType: TextInputType.number,
+        //   ),
+        // ),
         RaisedButton(
           onPressed: () {
             debugPrint('clicou no confirmar');
@@ -69,6 +59,34 @@ class FormularioTransferencia extends StatelessWidget {
     );
   }
 }
+
+class Editor extends StatelessWidget {
+  final TextEditingController _controlador;
+  final String _rotulo;
+  final String _dica;
+  final IconData _icone;
+
+
+  Editor(this._controlador, this._rotulo, this._dica, this._icone);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _controlador,
+        style: TextStyle(fontSize: 24.0),
+        decoration: InputDecoration(
+          icon: Icon(_icone),
+          labelText: _rotulo,
+          hintText: _dica,
+        ),
+        keyboardType: TextInputType.number,
+      ),
+    );
+  }
+}
+
 
 class ListaTransferencias extends StatelessWidget {
   @override
