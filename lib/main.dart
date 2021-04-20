@@ -93,7 +93,6 @@ class ListaTransferencias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _transferencias.add(Transferencia(50, 1234));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
@@ -107,6 +106,7 @@ class ListaTransferencias extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          //retornando valor do formulário
           final Future<Transferencia> future = Navigator.push(context, MaterialPageRoute(builder: (context){
             return FormularioTransferencia();
           }));
